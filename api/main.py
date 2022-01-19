@@ -87,4 +87,6 @@ def swap():
                         return {'user':'14day'}
                     elif req_check_user == 200:
                         return {'user':'wiat'}
+                    else:
+			return {'user':'erorr'}
         
