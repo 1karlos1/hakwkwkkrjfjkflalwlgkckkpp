@@ -42,6 +42,7 @@ def hi():
         up=f'https://api.yazanalqasem.repl.co/id-from-user/?user={user}'
         q =requests.get(up).json()
         id =q['id']
+        name =q['name']
         u = f'https://o7aa.pythonanywhere.com/?id={id}'
         head = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -53,6 +54,6 @@ def hi():
 }
         reqo=requests.get(u,headers=head).json()
         gs=str(reqo["data"])
-        return {'followers':followers,'following':following,'posts':posts,'id': id,'data': gs}
+        return {'followers':followers,'following':following,'posts':posts,'id': id,'data': gs,'name': name}
     except :
         return {'user':'user not fond'}
