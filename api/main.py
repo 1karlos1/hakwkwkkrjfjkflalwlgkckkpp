@@ -19,16 +19,12 @@ def hi():
             data.append(get_data[i].text)
         for i in range(len(get_posts)):
             last_posts.append(get_posts[i].attrs['src'])
-
         c = 0
         for i in data:
             user_data[user_data_keys[c]] = str(i).rsplit(' ',1)[0].replace(' ','')
             c += 1
-
         return user_data,last_posts
-
     def get_adv_data(user,type):
-
         data = []
         url = requests.get(f'https://greatfon.com/v/{user}/{type}')
         src = url.content
@@ -43,7 +39,20 @@ def hi():
         followers_list = get_adv_data(user,'followers')     # last followers ( in list )
         following_list = get_adv_data(user,'following')     # last following ( in list )
         followers, posts, following = data['followers'], data['posts'], data['following']
-        return {'followers':followers,'following':following,'posts':posts}
-    except:
+        up=f'https://api.yazanalqasem.repl.co/id-from-user/?user={user}'
+        q =requests.get(up).json()
+        id =q['id']
+        u = f'https://o7aa.pythonanywhere.com/?id={id}'
+        head = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-US,en;q=0.9,ar;q=0.8',
+        'Connection': 'keep-alive',
+        'Host': 'o7aa.pythonanywhere.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.70'
+}
+        reqo=requests.get(u,headers=head).json()
+        gs=str(reqo["data"])
+        return {'followers':followers,'following':following,'posts':posts,'id': id,'data': gs}
+    except :
         return {'user':'user not fond'}
-        
